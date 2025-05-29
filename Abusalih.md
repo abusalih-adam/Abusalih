@@ -116,6 +116,7 @@
       margin: 10px 0;
       border: 1px solid #ccc;
       border-radius: 5px;
+      box-sizing: border-box;
     }
     form button {
       background: #0d6efd;
@@ -124,19 +125,22 @@
       padding: 10px 20px;
       border-radius: 5px;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
     form button:hover {
       background: #0a58ca;
     }
+    #feedback-display h3 {
+      margin-top: 0;
+    }
   </style>
 </head>
 <body>
-
   <header>
     <h1>Abusalih Adam Salih</h1>
     <p>MEAL Officer | Civil Engineer | Data Analyst | Trainer</p>
   </header>
-
+  
   <nav>
     <a href="#profile">Profile</a>
     <a href="#education">Education</a>
@@ -144,7 +148,7 @@
     <a href="#projects">Projects</a>
     <a href="#reviews">Reviews</a>
   </nav>
-
+  
   <div class="section profile-card" id="profile">
     <div class="profile-header">
       <img src="https://avatars.githubusercontent.com/u/9919?s=200&v=4" alt="Abusalih's Photo" class="profile-pic" loading="lazy">
@@ -157,7 +161,7 @@
       <p>I am a passionate professional with expertise in Monitoring & Evaluation, Civil Engineering, Data Analysis, and Computer Training. I bring impact-focused solutions to humanitarian and development projects with a commitment to excellence.</p>
     </div>
   </div>
-
+  
   <div class="section" id="education">
     <h2>Education</h2>
     <ul>
@@ -166,7 +170,7 @@
       <li>Google Project Management - Coursera</li>
     </ul>
   </div>
-
+  
   <div class="section" id="experience">
     <h2>Experience</h2>
     <ul>
@@ -176,7 +180,7 @@
       <li>Construction Engineer - AMS</li>
     </ul>
   </div>
-
+  
   <div class="section" id="projects">
     <h2>Projects</h2>
     <div class="carousel">
@@ -185,7 +189,7 @@
       <img src="https://source.unsplash.com/300x200/?training" alt="Project 3" loading="lazy">
     </div>
   </div>
-
+  
   <div class="section" id="reviews">
     <h2>Visitor Reviews</h2>
     <div class="reviews">
@@ -195,13 +199,13 @@
       </div>
     </div>
   </div>
-
+  
   <div class="section" id="visitor-feedback">
     <h2>Visitors' Thoughts</h2>
     <form id="feedback-form">
       <label for="first-name">First Name:</label>
       <input type="text" id="first-name" name="first-name" required>
-
+      
       <label for="second-name">Second Name:</label>
       <input type="text" id="second-name" name="second-name" required>
 
@@ -219,31 +223,58 @@
       <ul id="feedback-list"></ul>
     </div>
   </div>
-
+  
   <div class="social">
     <a href="https://wa.me/249122711117" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
     <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
     <a href="https://t.me" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
   </div>
-
+  
   <footer>
     <p>&copy; 2025 Abusalih Adam Salih. All rights reserved.</p>
   </footer>
-
+  
   <script>
-    document.getElementById("feedback-form").addEventListener("submit", function(event) {
-      event.preventDefault();
-      const firstName = document.getElementById("first-name").value;
-      const secondName = document.getElementById("second-name").value;
-      const comment = document.getElementById("comment").value;
+    const feedbackForm = document.getElementById("feedback-form");
+    const feedbackList = document.getElementById("feedback-list");
 
+    // Load feedback from localStorage when page loads
+    window.addEventListener("DOMContentLoaded", () => {
+      const savedFeedback = JSON.parse(localStorage.getItem("feedbackData")) || [];
+      savedFeedback.forEach(({ firstName, secondName, comment }) => {
+        addFeedbackToList(firstName, secondName, comment);
+      });
+    });
+
+    // Helper function to add feedback to the list in DOM
+    function addFeedbackToList(firstName, secondName, comment) {
       const newFeedback = document.createElement("li");
       newFeedback.innerHTML = `<strong>${firstName} ${secondName}:</strong> ${comment}`;
-      document.getElementById("feedback-list").appendChild(newFeedback);
+      feedbackList.appendChild(newFeedback);
+    }
 
-      document.getElementById("feedback-form").reset();
+    // Handle form submit
+    feedbackForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const firstName = document.getElementById("first-name").value.trim();
+      const secondName = document.getElementById("second-name").value.trim();
+      const comment = document.getElementById("comment").value.trim();
+
+      if (!firstName || !secondName || !comment) {
+        alert("Please fill all fields before submitting.");
+        return;
+      }
+
+      addFeedbackToList(firstName, secondName, comment);
+
+      // Save to localStorage
+      const existingFeedback = JSON.parse(localStorage.getItem("feedbackData")) || [];
+      existingFeedback.push({ firstName, secondName, comment });
+      localStorage.setItem("feedbackData", JSON.stringify(existingFeedback));
+
+      feedbackForm.reset();
     });
   </script>
-
 </body>
 </html>
