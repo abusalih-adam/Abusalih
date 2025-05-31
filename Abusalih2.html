@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Abusalih Adam Salih Abaker - Portfolio</title>
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      scroll-behavior: smooth;
+      background: #f7f9fa;
+      color: #333;
+      height: 100%;
+    }
+    a {
+      color: #008080;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 128, 128, 0.9);
+      color: white;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 15px 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      backdrop-filter: saturate(180%) blur(10px);
+    }
+    nav a {
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 6px 10px;
+      border-radius: 4px;
+      transition: background 0.3s ease;
+    }
+    nav a:hover,
+    nav a.active {
+      background: #004d4d;
+    }
+
+    /* Hero section with big cover image */
+    #hero {
+      position: relative;
+      height: 100vh;
+      background: url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      padding: 0 20px;
+    }
+    #hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 128, 128, 0.6);
+      z-index: 0;
+    }
+    #hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    #hero-content h1 {
+      font-size: 3.2rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+    }
+    #hero-content p {
+      font-size: 1.3rem;
+      line-height: 1.4;
+      font-weight: 500;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+    }
+    /* Scroll down arrow */
+    #scroll-arrow {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.8rem;
+      color: white;
+      animation: bounce 2s infinite;
+      cursor: pointer;
+      z-index: 2;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(15px); }
+    }
+
+    /* Container for page content */
+    .container {
+      max-width: 900px;
+      margin: 60px auto 50px;
+      background: white;
+      padding: 40px 40px 60px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    /* Section headers */
+    section {
+      margin-bottom: 50px;
+    }
+    section h2 {
+      color: #008080;
+      border-bottom: 3px solid #008080;
+      padding-bottom: 8px;
+      margin-bottom: 25px;
+      font-size: 2rem;
+    }
+
+    /* About Me */
+    #about p {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    /* My Story */
+    #story p {
+      font-style: italic;
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.5;
+      border-left: 4px solid #008080;
+      padding-left: 15px;
+      margin-bottom: 15px;
+    }
+
+    /* Info lists */
+    ul.info-list, ul.skills-list, ul.languages-list, ul.references-list {
+      list-style: none;
+      padding: 0;
+    }
+    ul.info-list li, ul.skills-list li, ul.languages-list li, ul.references-list li {
+      margin-bottom: 8px;
+      font-size: 1rem;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 6px;
+    }
+
+    /* Skills */
+    ul.skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    ul.skills-list li {
+      background: #e0f2f1;
+      color: #00695c;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 1rem;
+      border: 1.5px solid #008080;
+      user-select: none;
+    }
+
+    /* Projects */
+    .project {
+      border: 1px solid #ddd;
+      padding: 20px 25px;
+      border-radius: 6px;
+      margin-bottom: 25px;
+      background: #fafafa;
+    }
+    .project h3 {
+      margin: 0 0 6px;
+      color: #004d4d;
+      font-size: 1.25rem;
+    }
+    .project .subtitle {
+      font-style: italic;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    .project p {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    /* Policies & Adherence Section */
+    #policies, #adherence {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+    .policy-item, .adherence-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: #e0f7f7;
+      padding: 18px 22px;
+      border-radius: 10px;
+      border: 1.5px solid #008080;
+      box-shadow: 0 3px 10px rgba(0,128,128,0.1);
+      user-select: none;
+    }
+    .policy-item svg, .adherence-item svg {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      fill: #008080;
+    }
+    .policy-text {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #004d4d;
+    }
+
+    /* Contact Form */
+    form {
+      max-width: 600px;
+      margin-top: 20px;
+    }
+    form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #004d4d;
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 20px;
+      border: 1.5px solid #008080;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+      resize: vertical;
+    }
+    form textarea {
+      min-height: 120px;
+    }
+    form button {
+      background: #008080;
+      border: none;
+      color: white;
+      padding: 12px 30px;
+      font-weight: 700;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+    form button:hover {
+      background: #004d4d;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 25px 0;
+      color: #777;
+      font-size: 0.9rem;
+      user-select: none;
+      border-top: 1px solid #eee;
+    }
+
+    /* Responsive */
+    @media (max-width: 800px) {
+      nav {
+        gap: 15px;
+        padding: 10px 0;
+      }
+      .container {
+        margin: 40px 15px 40px;
+        padding: 30px 25px 50px;
+      }
+      ul.skills-list {
+        flex-direction: column;
+        gap: 8px;
+      }
+      #policies, #adherence {
+        gap: 18px;
+      }
+      .policy-item, .adherence-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .policy-item svg, .adherence-item svg {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="active">Home</a>
+  <a href="#about">About Me</a>
+  <a href="#story">My Story</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#policies">Policies</a>
+  <a href="#adherence">Personal Adherence</a>
+  <a href="#contact">Feedback</a>
+</nav>
+
+<section id="hero" tabindex="-1">
+  <div id="hero-content" role="banner" aria-label="Welcome message">
+    <h1>Welcome! I’m Abusalih Adam Salih Abaker</h1>
+    <p>Civil Engineer & MEAL Officer passionate about humanitarian work, data, and community empowerment.</p>
+  </div>
+  <div id="scroll-arrow" role="button" aria-label="Scroll to About Me" tabindex="0" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">&#x21e3;</div>
+</section>
+
+<div class="container">
+
+  <section id="about" tabindex="-1">
+    <h2>About Me</h2>
+    <p><strong>Abusalih Adam Salih Abaker</strong> — Civil Engineer & MEAL Officer based in Geneina, Sudan. Passionate about leveraging data and project management skills to improve health, education, and community wellbeing projects.</p>
+    <ul class="info-list">
+      <li><strong>Email:</strong> <a href="mailto:Abusalih.adam@outlook.com">Abusalih.adam@outlook.com</a></li>
+      <li><strong>Phone:</strong> +249 122 711 117</li>
+      <li><strong>Nationality:</strong> Sudanese</li>
+      <li><strong>Date of Birth:</strong> June 03, 1996</li>
+      <li><strong>Languages:</strong> English (Fluent), Arabic (Fluent), Spanish (Basic)</li>
+    </ul>
+  </section>
+
+  <section id="story" tabindex="-1">
+    <h2>My Story</h2>
+    <p>I graduated with a Bachelor's in Civil Engineering from University of Karary in 2021. Since then, I've been working on humanitarian projects focused on health and education across Darfur, blending engineering knowledge with Monitoring, Evaluation, Accountability, and Learning (MEAL) expertise.</p>
+    <p>I am continuously upgrading my skills through certifications in Google Data Analysis and Project Management, and I love training others in computer skills and data tools. My goal is to create sustainable, impactful solutions to improve lives in my community and beyond.</p>
+  </section>
+
+  <section id="skills" tabindex="-1">
+    <h2>Skills</h2>
+    <ul class="skills-list">
+      <li>Leadership & Coaching</li>
+      <li>Communication Skills</li>
+      <li>Problem-Solving</li>
+      <li>Adaptability</li>
+      <li>Excel & Data Analysis</li>
+      <li>Project Management</li>
+      <li>Kobo Toolbox & CommCare HQ</li>
+      <li>Technical Proficiency</li>
+      <li>Analytical Skills</li>
+    </ul>
+  </section>
+
+  <section id="projects" tabindex="-1">
+    <h2>Projects</h2>
+
+    <div class="project">
+      <h3>CHC & BHA Cash Assistance</h3>
+      <div class="subtitle">Concern Worldwide | Sept 2024 - Dec 2024</div>
+      <p>Implemented cash distribution programs for vulnerable households, conducted needs assessments, and monitored project impact while engaging communities in feedback mechanisms.</p>
+    </div>
+
+    <div class="project">
+      <h3>CHC & IOM NFI & Hygiene Kits Distribution</h3>
+      <div class="subtitle">Concern Worldwide | Sept 2024 - Dec 2024</div>
+      <p>Managed the distribution of non-food items and hygiene kits, ensuring beneficiaries were properly assessed, volunteers trained, and accountability maintained.</p>
+    </div>
+
+    <div class="project">
+      <h3>ECHO Mobile Clinic</h3>
+      <div class="subtitle">Concern Worldwide | Sept 2024 - Dec 2024</div>
+      <p>Supported mobile health clinics with health education, trained healthcare workers, implemented feedback and emergency preparedness systems.</p>
+    </div>
+
+    <div class="project">
+      <h3>Health and Nutrition Support</h3>
+      <div class="subtitle">Concern Worldwide | Jan 2023 - Dec 2024</div>
+      <p>Assisted primary health centers to address malnutrition, provided training to health workers, and engaged community members for emergency health response.</p>
+    </div>
+
+  </section>
+
+  <section id="policies" tabindex="-1">
+    <h2>Policies</h2>
+
+    <div class="policy-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1 15h-2v-2h2v2zm1-4h-4v-2h4v2zm2 4h-2v-6h2v6z"/></svg>
+      <div class="policy-text">Commitment to Transparency and Accountability</div>
+    </div>
+
+    <div class="policy-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6H4v12h16V6zM5 17V7h14v10H5z"/></svg>
+      <div class="policy-text">Respect for Diversity and Inclusion</div>
+    </div>
+
+    <div class="policy-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4a8 8 0 018 8 7.99 7.99 0 01-8 8 7.99 7.99 0 01-8-8 8 8 0 018-8zm0 14a6 6 0 006-6 6.006 6.006 0 00-6-6 6.006 6.006 0 00-6 6 6 6 0 006 6z"/></svg>
+      <div class="policy-text">Protection of Human Rights and Dignity</div>
+    </div>
+
+    <div class="policy-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 13h2v-2H3v2zm16 3v-4h2v4h-2zm-6-6v2h4v-2h-4zm2 8a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+      <div class="policy-text">Adherence to Core Humanitarian Standard (CHS)</div>
+    </div>
+
+  </section>
+
+  <section id="adherence" tabindex="-1">
+    <h2>Personal Adherence</h2>
+
+    <div class="adherence-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a10 10 0 11-7.07 2.93A9.967 9.967 0 0112 2zm0 2a8 8 0 100 16 8 8 0 000-16z"/></svg>
+      <div class="policy-text">Commit to impartiality and neutrality in all humanitarian work.</div>
+    </div>
+
+    <div class="adherence-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16 12l-4-4-4 4h3v4h2v-4h3z"/></svg>
+      <div class="policy-text">Uphold transparency and accountability to communities served.</div>
+    </div>
+
+    <div class="adherence-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21l-8-5V7l8-5 8 5v9l-8 5z"/></svg>
+      <div class="policy-text">Respect human dignity, diversity, and protect rights.</div>
+    </div>
+
+    <div class="adherence-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10h10v4H7z"/></svg>
+      <div class="policy-text">Promote continuous learning and improvement in humanitarian efforts.</div>
+    </div>
+
+  </section>
+
+  <section id="contact" tabindex="-1">
+    <h2>Feedback & Contact</h2>
+    <p>If you'd like to get in touch or provide feedback, please use the form below:</p>
+    <form>
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Your name" required />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="your.email@example.com" required />
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+</div>
+
+<footer>
+  &copy; 2025 Abusalih Adam Salih Abaker. All rights reserved.
+</footer>
+
+<script>
+  // Highlight nav on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+
+  window.addEventListener('scroll', () => {
+    let scrollY = window.pageYOffset;
+
+    sections.forEach(sec => {
+      const sectionHeight = sec.offsetHeight;
+      const sectionTop = sec.offsetTop - 60;
+      const sectionId = sec.getAttribute('id');
+
+      if(scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if(link.getAttribute('href') === `#${sectionId}`) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  });
+
+  // Allow keyboard enter/space to scroll down from arrow button
+  document.getElementById('scroll-arrow').addEventListener('keydown', e => {
+    if(e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      document.getElementById('about').scrollIntoView({behavior: 'smooth'});
+    }
+  });
+</script>
+
+</body>
+</html>
